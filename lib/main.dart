@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mynotes/views/register_view.dart';
+import 'package:mynotes/views/login_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,7 +9,7 @@ void main() {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const RegisterView(),
+      home: const LoginView(),
     ),
   );
 }
