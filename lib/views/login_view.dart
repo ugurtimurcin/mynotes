@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mynotes/firebase_options.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -10,13 +13,20 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
+  bool _hidePassword = true;
 
   @override
   void initState() {
     super.initState();
-
     _email = TextEditingController();
     _password = TextEditingController();
+    _hidePassword = false;
+  }
+
+  void handlePasswordVisibility() {
+    setState(() {
+      _hidePassword = !_hidePassword;
+    });
   }
 
   @override
@@ -29,6 +39,73 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
+      body: FutureBuilder(
+        future: Firebase.initializeApp(
+            options: DefaultFirebaseOptions.currentPlatform),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              return Column(
+                children: [
+                  TextField(
+                    controller: _email,
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.mail_outlined),
+                    ),
+                  ),
+                  TextField(
+                    controller: _password,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.lock_outline),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          handlePasswordVisibility();
+                        },
+                        icon: Icon(
+                          _hidePassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                      ),
+                    ),
+                    autocorrect: false,
+                    obscureText: _hidePassword,
+                    enableSuggestions: false,
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      final email = _email.text;
+                      final password = _password.text;
+
+                      try {
+                        final userCredential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                          email: email,
+                          password: password,
+                        );
+                        print(userCredential);
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          print('user not found');
+                        } else if (e.code == 'wrong-password') {
+                          print('wrong password');
+                        }
+                        print(e.code);
+                      }
+                    },
+                    child: const Text('Log In'),
+                  )
+                ],
+              );
+            default:
+              return const CircularProgressIndicator();
+          }
+        },
+      ),
+    );
   }
 }
