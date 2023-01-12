@@ -39,73 +39,55 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-            options: DefaultFirebaseOptions.currentPlatform),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Column(
-                children: [
-                  TextField(
-                    controller: _email,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.mail_outlined),
-                    ),
-                  ),
-                  TextField(
-                    controller: _password,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.lock_outline),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          handlePasswordVisibility();
-                        },
-                        icon: Icon(
-                          _hidePassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                        ),
-                      ),
-                    ),
-                    autocorrect: false,
-                    obscureText: _hidePassword,
-                    enableSuggestions: false,
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      final email = _email.text;
-                      final password = _password.text;
+    return Column(
+      children: [
+        TextField(
+          controller: _email,
+          decoration: const InputDecoration(
+            prefixIcon: Icon(Icons.mail_outlined),
+          ),
+        ),
+        TextField(
+          controller: _password,
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.lock_outline),
+            suffixIcon: IconButton(
+              onPressed: () {
+                handlePasswordVisibility();
+              },
+              icon: Icon(
+                _hidePassword ? Icons.visibility : Icons.visibility_off,
+              ),
+            ),
+          ),
+          autocorrect: false,
+          obscureText: _hidePassword,
+          enableSuggestions: false,
+        ),
+        TextButton(
+          onPressed: () async {
+            final email = _email.text;
+            final password = _password.text;
 
-                      try {
-                        final userCredential = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                          email: email,
-                          password: password,
-                        );
-                        print(userCredential);
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          print('user not found');
-                        } else if (e.code == 'wrong-password') {
-                          print('wrong password');
-                        }
-                        print(e.code);
-                      }
-                    },
-                    child: const Text('Log In'),
-                  )
-                ],
+            try {
+              final userCredential =
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                email: email,
+                password: password,
               );
-            default:
-              return const CircularProgressIndicator();
-          }
-        },
-      ),
+              print(userCredential);
+            } on FirebaseAuthException catch (e) {
+              if (e.code == 'user-not-found') {
+                print('user not found');
+              } else if (e.code == 'wrong-password') {
+                print('wrong password');
+              }
+              print(e.code);
+            }
+          },
+          child: const Text('Log In'),
+        )
+      ],
     );
   }
 }
