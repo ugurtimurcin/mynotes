@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mynotes/firebase_options.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -20,7 +18,6 @@ class _LoginViewState extends State<LoginView> {
     super.initState();
     _email = TextEditingController();
     _password = TextEditingController();
-    _hidePassword = false;
   }
 
   void handlePasswordVisibility() {
@@ -86,6 +83,10 @@ class _LoginViewState extends State<LoginView> {
             }
           },
           child: const Text('Log In'),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Text('Not register yet? Register here!'),
         )
       ],
     );
