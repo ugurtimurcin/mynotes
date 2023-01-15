@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mynotes/consts/routes.dart';
 import 'package:mynotes/enums/menu_action.dart';
 import 'dart:developer' as devtools show log;
 
@@ -28,7 +29,7 @@ class _NotesViewState extends State<NotesView> {
                     await FirebaseAuth.instance.signOut();
                     if (!mounted) return;
                     await Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/login/', (route) => false);
+                        .pushNamedAndRemoveUntil(loginRoute, (route) => false);
                   }
                   break;
               }
