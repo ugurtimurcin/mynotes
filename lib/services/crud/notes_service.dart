@@ -11,6 +11,11 @@ import 'package:path_provider/path_provider.dart'
 class NotesService {
   Database? _db;
   List<DatabaseNote> _notes = [];
+
+  static final NotesService _shared = NotesService._sharedInstance();
+  NotesService._sharedInstance();
+  factory NotesService() => _shared;
+
   final _notesStreamController =
       StreamController<List<DatabaseNote>>.broadcast();
   Stream<List<DatabaseNote>> get allNotes => _notesStreamController.stream;
