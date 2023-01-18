@@ -14,7 +14,7 @@ Future<T?> showGenericDialog<T>({
     builder: (context) {
       return AlertDialog(
         title: icon,
-        content: Text(content),
+        content: Text(content, textAlign: TextAlign.center),
         actions: options.keys.map(
           (optionTitle) {
             final value = options[optionTitle];
