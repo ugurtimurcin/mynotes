@@ -58,7 +58,7 @@ class _NotesViewState extends State<NotesView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(newNoteRoute);
+          Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
         },
         child: const Icon(Icons.edit_note_outlined),
       ),

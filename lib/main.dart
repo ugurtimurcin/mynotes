@@ -33,7 +33,7 @@ void main() {
             return PageTransition(
                 child: const VerifyEmailView(),
                 type: PageTransitionType.leftToRight);
-          case newNoteRoute:
+          case createOrUpdateNoteRoute:
             return PageTransition(
                 child: const CreateUpdateNoteView(),
                 type: PageTransitionType.bottomToTop);
