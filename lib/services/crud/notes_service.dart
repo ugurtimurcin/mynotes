@@ -10,11 +10,10 @@ import 'package:path_provider/path_provider.dart'
 
 class NotesService {
   Database? _db;
-
   List<DatabaseNote> _notes = [];
-
   final _notesStreamController =
       StreamController<List<DatabaseNote>>.broadcast();
+  Stream<List<DatabaseNote>> get allNotes => _notesStreamController.stream;
 
   Future<void> _cacheNotes() async {
     final allNotes = await getAllNotes();
