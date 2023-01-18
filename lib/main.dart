@@ -21,22 +21,34 @@ void main() {
         switch (settings.name) {
           case loginRoute:
             return PageTransition(
-                child: const LoginView(), type: PageTransitionType.leftToRight);
+              settings: settings,
+              child: const LoginView(),
+              type: PageTransitionType.leftToRight,
+            );
           case registerRoute:
             return PageTransition(
-                child: const RegisterView(),
-                type: PageTransitionType.leftToRight);
+              settings: settings,
+              child: const RegisterView(),
+              type: PageTransitionType.leftToRight,
+            );
           case notesRoute:
             return PageTransition(
-                child: const NotesView(), type: PageTransitionType.leftToRight);
+              settings: settings,
+              child: const NotesView(),
+              type: PageTransitionType.leftToRight,
+            );
           case verifyEmailRoute:
             return PageTransition(
-                child: const VerifyEmailView(),
-                type: PageTransitionType.leftToRight);
+              settings: settings,
+              child: const VerifyEmailView(),
+              type: PageTransitionType.leftToRight,
+            );
           case createOrUpdateNoteRoute:
             return PageTransition(
-                child: const CreateUpdateNoteView(),
-                type: PageTransitionType.bottomToTop);
+              settings: settings,
+              child: const CreateUpdateNoteView(),
+              type: PageTransitionType.bottomToTop,
+            );
           default:
             return null;
         }
