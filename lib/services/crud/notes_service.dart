@@ -23,6 +23,7 @@ class NotesService {
   factory NotesService() => _shared;
 
   late final StreamController<List<DatabaseNote>> _notesStreamController;
+  Stream<List<DatabaseNote>> get allNotes => _notesStreamController.stream;
 
   Future<void> _cacheNotes() async {
     final allNotes = await getAllNotes();
