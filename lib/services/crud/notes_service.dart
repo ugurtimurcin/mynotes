@@ -268,7 +268,7 @@ class NotesService {
     );
 
     if (result == 0) {
-      throw CouldNotUpdateNote();
+      throw CouldNotUpdateNoteException();
     }
 
     final updatedNote = await getNote(id: note.id);
