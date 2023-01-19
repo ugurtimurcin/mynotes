@@ -244,6 +244,8 @@ class NotesService {
         textColumn: text,
         isSyncedWithCloudColumn: 0,
       },
+      where: 'id = ?',
+      whereArgs: [note.id],
     );
 
     if (result == 0) {
