@@ -45,6 +45,8 @@ dependencies:
   path: ^1.8.2
   page_transition: ^2.0.9
   share_plus: ^6.3.0
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
 
 dev_dependencies:
   flutter_test:
