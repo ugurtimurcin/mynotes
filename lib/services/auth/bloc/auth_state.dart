@@ -10,9 +10,9 @@ class AuthStateLoading extends AuthState {
   const AuthStateLoading();
 }
 
-class AthStateLoggedIn extends AuthState {
+class AuthStateLoggedIn extends AuthState {
   final AuthUser user;
-  const AthStateLoggedIn(this.user);
+  const AuthStateLoggedIn(this.user);
 }
 
 class AuthStateLoginFailure extends AuthState {
