@@ -10,7 +10,6 @@ import 'package:mynotes/views/notes/create_update_note_view.dart';
 import 'package:mynotes/views/notes/notes_view.dart';
 import 'package:mynotes/views/register_view.dart';
 import 'package:mynotes/views/verify_email_view.dart';
-import 'package:page_transition/page_transition.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,41 +23,8 @@ void main() {
         create: (context) => AuthBloc(FirebaseAuthProvider()),
         child: const HomePage(),
       ),
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case loginRoute:
-            return PageTransition(
-              settings: settings,
-              child: const LoginView(),
-              type: PageTransitionType.leftToRight,
-            );
-          case registerRoute:
-            return PageTransition(
-              settings: settings,
-              child: const RegisterView(),
-              type: PageTransitionType.leftToRight,
-            );
-          case notesRoute:
-            return PageTransition(
-              settings: settings,
-              child: const NotesView(),
-              type: PageTransitionType.leftToRight,
-            );
-          case verifyEmailRoute:
-            return PageTransition(
-              settings: settings,
-              child: const VerifyEmailView(),
-              type: PageTransitionType.leftToRight,
-            );
-          case createOrUpdateNoteRoute:
-            return PageTransition(
-              settings: settings,
-              child: const CreateUpdateNoteView(),
-              type: PageTransitionType.bottomToTop,
-            );
-          default:
-            return null;
-        }
+      routes: {
+        createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
       },
       debugShowCheckedModeBanner: false,
     ),
@@ -79,6 +45,8 @@ class HomePage extends StatelessWidget {
           return const VerifyEmailView();
         } else if (state is AuthStateLoggedOut) {
           return const LoginView();
+        } else if (state is AuthStateRegistering) {
+          return const RegisterView();
         } else {
           return const Scaffold(
             body: CircularProgressIndicator(),
